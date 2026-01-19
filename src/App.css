@@ -38,3 +38,15 @@ body{
 .menu-item:hover::after {
   transform: scaleX(1);
 }
+
+
+section,
+#makeup,
+#hair,
+#skin,
+#hand,
+#waxing,
+#services,
+#contact {
+  scroll-margin-top: 100px; /* navbar height */
+}

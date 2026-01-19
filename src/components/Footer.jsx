@@ -41,9 +41,8 @@ const Footer = () => {
           <p className="text-gray-100/90">📍 Karachi, Pakistan</p>
           {/* Social Icons */}
           <div className="flex gap-4 mt-4">
-            <a href="#" className="hover:text-[#b86506] transition-colors duration-300">🔗 FB</a>
-            <a href="#" className="hover:text-[#b86506] transition-colors duration-300">🔗 IG</a>
-            <a href="#" className="hover:text-[#b86506] transition-colors duration-300">🔗 TW</a>
+            <a href="https://github.com/sheikhsamra" target="_blank" className="hover:text-[#b86506] transition-colors duration-300">🔗 GitHub</a>
+            <a href="https://www.linkedin.com/in/samra-moinuddin/" target="_blank" className="hover:text-[#b86506] transition-colors duration-300">🔗 LinkedIn</a>
           </div>
         </div>
       </div>

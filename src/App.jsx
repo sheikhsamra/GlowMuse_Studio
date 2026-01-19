@@ -13,23 +13,23 @@ import ContactPage from './components/Contaxt';
 import Footer from './components/Footer';
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
   const menuRef = useRef(null);
   const lastScroll = useRef(window.scrollY);
 
+  // Navbar GSAP animation + scroll hide/show
   useEffect(() => {
     if (!navRef.current) return;
     const navHeight = navRef.current.offsetHeight;
 
-    // Page load animation
     gsap.fromTo(
       navRef.current,
       { y: -navHeight, opacity: 1 },
       { y: 0, duration: 1, ease: 'power3.out' }
     );
 
-    // Scroll hide/show
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       if (currentScroll > lastScroll.current && currentScroll > 100) {
@@ -44,13 +44,36 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to section on search
+  useEffect(() => {
+    if (!searchTerm) return;
+
+    const term = searchTerm.toLowerCase();
+
+    const sections = [
+      { key: ['makeup', 'bridal', 'glam'], id: 'makeup' },
+      { key: ['hair'], id: 'hair' },
+      { key: ['skin', 'facial'], id: 'skin' },
+      { key: ['hand', 'feet', 'manicure', 'pedicure'], id: 'hand' },
+      { key: ['wax', 'waxing'], id: 'waxing' },
+    ];
+
+    const match = sections.find(section =>
+      section.key.some(word => term.includes(word))
+    );
+
+    if (match) {
+      document.getElementById(match.id)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [searchTerm]);
+
   return (
     <>
       {/* Navbar */}
-      <nav
-        ref={navRef}
-        className="fixed top-0 left-0 w-full z-50 shadow-lg backdrop-blur-md bg-[#3d2100]"
-      >
+      <nav ref={navRef} className="fixed top-0 left-0 w-full z-50 shadow-lg backdrop-blur-md bg-[#3d2100]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between p-4">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2">
@@ -65,54 +88,33 @@ const App = () => {
             {/* Search */}
             <div className="relative hidden md:block">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                  />
+                <svg className="w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
                 </svg>
               </div>
               <input
                 type="text"
-                className="block w-full pl-9 pr-4 py-2 border border-[#b86506] rounded-3xl text-sm placeholder:text-white focus:outline-none focus:ring-2 focus:ring-[#b86506] shadow-md transition"
-                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="block w-full pl-9 pr-4 py-2 border border-[#b86506] text-white rounded-3xl text-sm placeholder:text-white focus:outline-none focus:ring-2 focus:ring-[#b86506]"
+                placeholder="Search services..."
               />
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden text-white w-10 h-10 rounded-full hover:bg-[#b86506] transition flex items-center justify-center"
             >
-              <svg
-                className="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  d="M5 7h14M5 12h14M5 17h14"
-                />
+              <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h14" />
               </svg>
             </button>
           </div>
 
           {/* Menu */}
-          <div
-            ref={menuRef}
-            className={`w-full md:flex md:w-auto md:order-1 ${menuOpen ? 'block' : 'hidden'}`}
-          >
-            <ul className="flex flex-col md:flex-row md:space-x-2 mt-4 md:mt-0  md:bg-transparent p-5 md:p-0 rounded-2xl shadow-md md:shadow-none transition-all">
+          <div ref={menuRef} className={`w-full md:flex md:w-auto md:order-1 ${menuOpen ? 'block' : 'hidden'}`}>
+            <ul className="flex flex-col md:flex-row md:space-x-2 mt-4 md:mt-0 md:bg-transparent p-5 md:p-0 rounded-2xl shadow-md md:shadow-none transition-all">
               {[
                 { name: 'Home', href: '#home' },
                 { name: 'Services', href: '#services' },
@@ -138,7 +140,7 @@ const App = () => {
         </div>
       </nav>
 
-      {/* Hero page content */}
+      {/* Hero */}
       <div
         id="home"
         className="pt-28 min-h-200 bg-[#fff0f5] flex items-center md:justify-end justify-center relative"
@@ -151,46 +153,37 @@ const App = () => {
           <p className="hero-heading mt-4 text-2xl text-white font-semibold">
             Professional Beauty & Salon Services
           </p>
-          <p className="mt-4 text-2xl bg-linear-to-r from-[#b86506] via-[#ebab56] to-[#b86506] bg-clip-text text-transparent font-bold">Upto 20% Discount for new Members</p>
+          <p className="mt-4 text-2xl bg-linear-to-r from-[#b86506] via-[#ebab56] to-[#b86506] bg-clip-text text-transparent font-bold">
+            Upto 20% Discount for new Members
+          </p>
         </div>
       </div>
 
-      {/* Services section */}
+      {/* Sections */}
       <div id="services">
-        <ServicesCards />
+        <ServicesCards searchTerm={searchTerm}/>
       </div>
-
-      {/* Glam Packages section */}
       <div id="makeup">
-        <GlamPackages />
+        <GlamPackages searchTerm={searchTerm}/>
       </div>
-
-      {/* Hair Services section */}
       <div id="hair">
-        <HairSection />
+        <HairSection searchTerm={searchTerm}/>
       </div>
-
-      {/* Skin section placeholder */}
       <div id="skin">
-        <SkinFacialSection />
+        <SkinFacialSection searchTerm={searchTerm}/>
       </div>
-
-      {/* Hand & Feet section placeholder */}
-      <div id="hand" >
-        <HandFeetSection />
+      <div id="hand">
+        <HandFeetSection searchTerm={searchTerm}/>
       </div>
-
-      {/* Waxing section placeholder */}
       <div id="waxing">
-        <WaxingSection />
+        <WaxingSection searchTerm={searchTerm}/>
       </div>
 
-      {/* Contact section placeholder */}
+      {/* Contact & Footer */}
       <div id="contact">
         <ContactPage/>
       </div>
-      {/* Footer  */}
-        <Footer />
+      <Footer />
     </>
   );
 };
