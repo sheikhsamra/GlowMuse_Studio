@@ -38,7 +38,6 @@ const HandFeetSection = ({ searchTerm = "", setSearchMessage }) => {
 
   // GSAP scroll animation
   useEffect(() => {
-    // Purane references clean karein taake filter ke baad animation glitch na ho
     cardsRef.current = cardsRef.current.slice(0, filteredHandFeet.length);
 
     cardsRef.current.forEach(card => {
@@ -61,7 +60,7 @@ const HandFeetSection = ({ searchTerm = "", setSearchMessage }) => {
     navigate("/pricing-page", { state: { selectedItem: item } });
   };
 
-  // Agar search match na ho toh section hide kar dein
+// Render nothing if no matches found
   if (searchTerm !== "" && filteredHandFeet.length === 0) {
     return null;
   }

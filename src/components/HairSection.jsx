@@ -42,7 +42,6 @@ const HairSection = ({ searchTerm = "" }) => {
 
   // GSAP scroll animation
   useEffect(() => {
-    // Clean refs to avoid animation glitches
     cardsRef.current = cardsRef.current.slice(0, filteredHair.length);
 
     cardsRef.current.forEach((card) => {

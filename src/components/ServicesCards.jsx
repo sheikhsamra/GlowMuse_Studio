@@ -36,7 +36,7 @@ const ServicesCards = () => {
             trigger: card,
             start: "top 90%",
             end: "top 50%",
-            scrub: true, // 👈 scroll ke sath animation
+            scrub: true, 
           },
         }
       );
