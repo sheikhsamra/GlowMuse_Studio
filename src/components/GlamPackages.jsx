@@ -105,7 +105,7 @@ const GlamPackages = ({ searchTerm = "" }) => {
                 onClick={() => navigate("/pricing-page", { state: { selectedItem: item } })}
                 className="px-6 md:px-8 py-2 md:py-3 rounded-full bg-linear-to-r from-[#b86506] via-[#ebab56] to-[#b86506] text-white font-semibold tracking-wide hover:shadow-xl hover:shadow-yellow-500/50 transition-all duration-300"
               >
-                Buy Now
+                Book Now
               </button>
             </div>
           </div>
