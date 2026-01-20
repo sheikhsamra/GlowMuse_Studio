@@ -43,7 +43,7 @@ const ContactPage = () => {
 
   return (
     <section
-      className="flex flex-col items-center justify-center py-20 bg-[#703d02]">
+      className="flex flex-col -m-8 items-center justify-center py-20 bg-[#703d02]">
 
 
       {/* Heading */}

@@ -1,10 +1,17 @@
 @import "tailwindcss";
 
-body{
+html, body{
     font-family: "Roboto Flex", sans-serif;
     margin: 0 auto;
     padding: 0;
     max-width: 1600px;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+
+#root {
+  overflow-x: hidden;
 }
  .logo{
   font-family: "Luxurious Script", cursive;

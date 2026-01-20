@@ -44,7 +44,7 @@ const ServicesCards = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-[#703d02]">
+    <section id="services" className="py-16 -m-4 bg-[#703d02]">
       <h2 className="hero-heading text-center md:text-7xl text-4xl font-bold mb-12 text-white">
         Our Beauty Services
       </h2>
