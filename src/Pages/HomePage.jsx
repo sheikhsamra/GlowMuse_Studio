@@ -89,7 +89,7 @@ const HomePage = () => {
                   <a
                     href={`#${item.toLowerCase()}`}
                     onClick={() => setMenuOpen(false)}
-                    className="block py-2 px-3 text-white hover:text-[#ebab56] transition-colors font-medium"
+                    className="menu-item block py-2 px-3 text-white hover:text-[#ebab56] transition-colors font-medium"
                   >
                     {item}
                   </a>
